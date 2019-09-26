@@ -1,6 +1,18 @@
 # twitter-account-switcher-crx
 Twitter Account Switcher for Chrome
 
+# Usage
+
+Click extension button or keyboard shortcut on twitter.com
+
+## Keyboard shortcut
+
+default: `Ctrl + Shift + S`  
+mac: `⌘ + Shift + S`
+
+
+You can edit keybinding on `chrome://extensions/shortcuts`
+
 
 # Credits
 
