@@ -13,26 +13,25 @@ chrome.runtime.onMessage.addListener(message => {
 
   localStorage[key] = location.href;
 
-  const moreButton = document.querySelector(
-    'nav[role="navigation"] div[role="button"]'
+  const accountSwitcherButton = document.querySelector(
+    '[data-testid="SideNav_AccountSwitcher_Button"]'
   ) as HTMLElement;
 
-  if (!moreButton) {
-    alert("Error: Button not found.");
+  if (!accountSwitcherButton) {
+    alert("Error: AccountSwitcher Button not found.");
     return;
   }
 
-  moreButton.click();
+  accountSwitcherButton.click();
 
   setTimeout(() => {
-    const nodes = document
-      .querySelector("[role=menu]")
-      .querySelectorAll('div[role="button"]') as NodeListOf<HTMLElement>;
+    const currentAccount = document.querySelector('li[data-testid="UserCell"]') as HTMLElement;
+    const nextAccount = currentAccount.nextSibling as HTMLElement;
 
-    if (nodes.length === 0) {
+    if (!nextAccount.dataset.testid) {
       alert("Error: Anothor account not found.");
       return;
     }
-    nodes[nodes.length - 1].click();
-  }, 500);
+    nextAccount.click();
+  }, 100);
 });
