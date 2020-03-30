@@ -13,9 +13,15 @@ chrome.runtime.onMessage.addListener(message => {
 
   localStorage[key] = location.href;
 
-  const accountSwitcherButton = document.querySelector(
+  let accountSwitcherButton = document.querySelector(
     '[data-testid="SideNav_AccountSwitcher_Button"]'
   ) as HTMLElement;
+
+  if (!accountSwitcherButton) {
+    accountSwitcherButton = document.querySelector(
+      'nav[role="navigation"] div[role="button"]'
+    ) as HTMLElement;
+  }
 
   if (!accountSwitcherButton) {
     alert("Error: AccountSwitcher Button not found.");
@@ -25,13 +31,22 @@ chrome.runtime.onMessage.addListener(message => {
   accountSwitcherButton.click();
 
   setTimeout(() => {
-    const currentAccount = document.querySelector('li[data-testid="UserCell"]') as HTMLElement;
-    const nextAccount = currentAccount.nextSibling as HTMLElement;
+    let nextAccount;
+    let currentAccount = document.querySelector('li[data-testid="UserCell"]') as HTMLElement;
 
-    if (!nextAccount.dataset.testid) {
-      alert("Error: Anothor account not found.");
-      return;
+    if (currentAccount) {
+      nextAccount = currentAccount.nextSibling as HTMLElement;
+      if (!nextAccount?.dataset?.testid) {
+        alert("Error: Anothor account not found.");
+        return;
+      }
+    } else {
+      const nodes = document
+        .querySelector("[role=menu]")
+        .querySelectorAll('div[role="button"]') as NodeListOf<HTMLElement>;
+      nextAccount = nodes[nodes.length - 1];
     }
+
     nextAccount.click();
   }, 100);
 });
