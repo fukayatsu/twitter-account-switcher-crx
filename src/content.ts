@@ -31,20 +31,26 @@ chrome.runtime.onMessage.addListener(message => {
   accountSwitcherButton.click();
 
   setTimeout(() => {
+    let currentAccount = document.querySelector(
+      'li[data-testid="UserCell"]'
+    ) as HTMLElement;
+
+    let nextAccountGroup;
     let nextAccount;
-    let currentAccount = document.querySelector('li[data-testid="UserCell"]') as HTMLElement;
 
     if (currentAccount) {
-      nextAccount = currentAccount.nextSibling as HTMLElement;
-      if (!nextAccount?.dataset?.testid) {
-        alert("Error: Anothor account not found.");
+      nextAccountGroup = currentAccount.nextSibling as HTMLElement;
+      if (!nextAccountGroup) {
+        alert("Error(1): Anothor account not found.");
         return;
       }
-    } else {
-      const nodes = document
-        .querySelector("[role=menu]")
-        .querySelectorAll('div[role="button"]') as NodeListOf<HTMLElement>;
-      nextAccount = nodes[nodes.length - 1];
+      nextAccount = nextAccountGroup.querySelectorAll(
+        "[data-testid='UserCell']"
+      )[0] as HTMLElement;
+      if (!nextAccount) {
+        alert("Error(2): Anothor account not found.");
+        return;
+      }
     }
 
     nextAccount.click();
