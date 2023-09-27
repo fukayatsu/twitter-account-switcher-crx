@@ -22,8 +22,10 @@ module.exports = {
         extensions: [".ts", ".js"]
     },
     plugins: [
-        new CopyPlugin([
-            { from: "./public", to: "./" }
-        ]),
+        new CopyPlugin({
+            patterns: [
+                { from: "./public", to: "./" }
+            ]
+        }),
     ]
 }

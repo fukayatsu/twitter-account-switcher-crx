@@ -7,7 +7,7 @@ Click extension button or keyboard shortcut on twitter.com
 
 ## Keyboard shortcut
 
-default: `Ctrl + Shift + S`  
+default: `Ctrl + Shift + S`
 mac: `⌘ + Shift + S`
 
 

@@ -6,7 +6,7 @@ if (localStorage[key]) {
   location.href = url;
 }
 
-chrome.runtime.onMessage.addListener(message => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.event != "browserActionOnClicked") {
     return;
   }
@@ -14,12 +14,12 @@ chrome.runtime.onMessage.addListener(message => {
   localStorage[key] = location.href;
 
   let accountSwitcherButton = document.querySelector(
-    '[data-testid="SideNav_AccountSwitcher_Button"]'
+    '[data-testid="SideNav_AccountSwitcher_Button"]',
   ) as HTMLElement;
 
   if (!accountSwitcherButton) {
     accountSwitcherButton = document.querySelector(
-      'nav[role="navigation"] div[role="button"]'
+      'nav[role="navigation"] div[role="button"]',
     ) as HTMLElement;
   }
 
@@ -28,31 +28,24 @@ chrome.runtime.onMessage.addListener(message => {
     return;
   }
 
-  accountSwitcherButton.click();
+  if (!document.querySelector("[data-testid='HoverCard']")) {
+    accountSwitcherButton.click();
+  }
 
   setTimeout(() => {
     let currentAccount = document.querySelector(
-      'li[data-testid="UserCell"]'
+      "[data-testid='HoverCard'] li[data-testid='UserCell']",
     ) as HTMLElement;
 
-    let nextAccountGroup;
     let nextAccount;
 
     if (currentAccount) {
-      nextAccountGroup = currentAccount.nextSibling as HTMLElement;
-      if (!nextAccountGroup) {
+      nextAccount = currentAccount.nextSibling as HTMLElement;
+      if (!nextAccount) {
         alert("Error(1): Anothor account not found.");
         return;
       }
-      nextAccount = nextAccountGroup.querySelectorAll(
-        "[data-testid='UserCell']"
-      )[0] as HTMLElement;
-      if (!nextAccount) {
-        alert("Error(2): Anothor account not found.");
-        return;
-      }
     }
-
     nextAccount.click();
-  }, 100);
+  }, 500);
 });
