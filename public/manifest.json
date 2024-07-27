@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Twitter Account Switcher",
-  "description": "Twitter Account Switcher for Chrome",
+  "name": "X Account Switcher",
+  "description": "X Account Switcher for Chrome",
   "version": "1.4.0",
   "action": {
     "default_icon": "icon.png"
@@ -9,7 +9,7 @@
   "icons": { "16": "icon.png", "48": "icon.png", "128": "icon.png" },
   "content_scripts": [
     {
-      "matches": ["https://twitter.com/*"],
+      "matches": ["https://twitter.com/*", "https://x.com/*"],
       "js": ["content.js"]
     }
   ],
