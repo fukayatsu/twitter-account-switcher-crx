@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "X Account Switcher",
-  "description": "X Account Switcher for Chrome",
-  "version": "1.4.0",
+  "description": "X (formerly Twitter) Account Switcher for Chrome",
+  "version": "1.5.0",
   "action": {
     "default_icon": "icon.png"
   },
